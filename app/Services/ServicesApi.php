@@ -22,7 +22,7 @@ class ServicesApi
 
     public function __construct()
     {
-        $this->baseUri = 'http://18.237.220.91/';
+        $this->baseUri =env('BASE_URL') ; //'http://18.237.220.91/'
         $this->secret = config('services.auth.secret');
     }
 
