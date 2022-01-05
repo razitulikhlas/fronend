@@ -91,11 +91,11 @@
                 <td>Rp {{ number_format( $item['price'],'0',',','.') }}</td>
                 <td>{{ $item['status_delete'] }}</td>
                 <td>
-                    <div class="btn-group">
-                        <a href="customer/{{ $item["id"] }}" class="btn btn-info btn-sm" >
-                                <i class="fa fa-eye"></i> Detail
-                            </a>
-                        </div>
+                  <div class="btn-group">
+                    <a href="" class="btn btn-info btn-sm" >
+                        <i class="fa fa-eye"></i> Detail
+                    </a>
+                  </div>
                 </td>
             </tr>
             @endforeach

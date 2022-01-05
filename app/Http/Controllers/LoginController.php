@@ -22,6 +22,7 @@ class LoginController extends Controller
     }
     function index()
     {
+        // return "hello";
         return view('login', ["title" => "Login"]);
     }
 

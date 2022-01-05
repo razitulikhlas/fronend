@@ -22,26 +22,23 @@ class RequestSaldoController extends Controller
     }
     public function index()
     {
-
         try {
             $response =  json_decode($this->successResponse($this
             ->serviceAPi
             ->requestSaldo())
             ->original, true);
-            // return dd($response);
             return view('layouts.requestsaldo.index', [
                 "title"=>"Request Saldo",
                 "store" => $response["data"]["store"],
                 "driver" => $response["data"]["driver"],
             ]);
         } catch (\Throwable $th) {
-            // return dd($response);
             return view('layouts.requestsaldo.index', [
                 "title"=>"Request Saldo",
-                "data" => []
+                "store" => [],
+                "driver" => [],
             ]);
         }
-
     }
 
 

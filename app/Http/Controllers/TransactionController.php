@@ -27,7 +27,8 @@ class TransactionController extends Controller
             // return dd($response);
             return view('layouts.transactions.index', ["title" => "Transaksi", "data" => $response["data"]]);
         } catch (Throwable $exception) {
-            return $exception;
+            // return $exception;
+            return view('layouts.transactions.index', ["title" => "Transaksi", "data" => []]);
         }
     }
 
@@ -47,6 +48,7 @@ class TransactionController extends Controller
                 ]);
             }
         } catch (Throwable $exception) {
+            
         }
     }
 
@@ -88,12 +90,14 @@ class TransactionController extends Controller
                 ->original, true);
 
                 // return dd($response);
+            
+            $totalTransaction = 0;
 
-            $totalTransaction= array_reduce($response["detail_transaksi"], function($carry, $item)
+            $totalTransaction= array_reduce($response["detail_transaksi"], function($totalTransaction, $item)
             {
-                    return $item["count"] * $item["price_product"];
+                    return $item["count"] * $item["price_product"] + $totalTransaction;
             });
-
+            $discount = null;
             if($response["promo"] != null){
                 $discount = $response["promo"]["promoPrice"];
             }
