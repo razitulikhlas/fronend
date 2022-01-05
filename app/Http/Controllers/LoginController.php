@@ -57,16 +57,15 @@ class LoginController extends Controller
                 return redirect()->intended('/dashboard');
             }
         } catch (Exception $exception) {
-            return dd($exception);
-            // if ($exception instanceof ClientException) {
-            //     $message = $exception->getResponse()->getBody();
-            //     $code = $exception->getCode();
-            //     $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
-            //     // return var_dump($erorResponse);
-            //     return back()->with('loginError', $erorResponse["message"]);
-            // } else {
-            //     return back()->with('loginError', "Check your connection");
-            // }
+            if ($exception instanceof ClientException) {
+                $message = $exception->getResponse()->getBody();
+                $code = $exception->getCode();
+                $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
+                // return var_dump($erorResponse);
+                return back()->with('loginError', $erorResponse["message"]);
+            } else {
+                return back()->with('loginError', "Check your connection");
+            }
         }
     }
 

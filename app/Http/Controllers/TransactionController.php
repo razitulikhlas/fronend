@@ -93,6 +93,10 @@ class TransactionController extends Controller
             {
                     return $item["count"] * $item["price_product"];
             });
+
+            if($response["promo"] != null){
+                $discount = $response["promo"]["promoPrice"];
+            }
             if ($response['success']) {
                 return view('layouts.transactions.detailTransaction', [
                     "title" => "Detail Transaction",
@@ -100,7 +104,8 @@ class TransactionController extends Controller
                     "driver" => $response["driver"],
                     "transaction" => $response["transaction"],
                     "detailTransaction" => $response["detail_transaksi"],
-                    "totalTransaction" => $totalTransaction
+                    "totalTransaction" => $totalTransaction,
+                    "promo"=>$discount
                 ]);
             }
         } catch (Throwable $exception) {

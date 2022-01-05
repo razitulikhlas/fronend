@@ -25,14 +25,14 @@
   </div>
   <!-- /.login-logo -->
   <div class="card">
-  
-    @if (session()->has('success'))  
+
+    @if (session()->has('success'))
     <div class="alert alert-success" role="alert" >
       {{ session('success') }}
     </div>
     @endif
 
-    @if (session()->has('loginError'))  
+    @if (session()->has('loginError'))
     <div class="alert alert-danger alert-dismissible fade show" role="alert" >
       {{ session('loginError') }}
     </div>
@@ -58,21 +58,10 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <!-- /.col -->
-              <div class="col-4">
+            <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-              </div>
-              <!-- /.col -->
             </div>
       </form>
-
-      <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
-      </p>
-      <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
-      </p>
     </div>
     <!-- /.login-card-body -->
   </div>

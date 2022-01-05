@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardDriverController;
 use App\Http\Controllers\ListPromoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\RequestSaldoController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TestingController;
@@ -68,6 +69,10 @@ Route::group(['middleware'=>['session']],function(){
     Route::get('/store/{id}', [StoreController::class, 'getListProductStore']);
     Route::post('/product/{id}/{status}/{idStore}', [StoreController::class, 'activationProduct']);
 
+    // Request Saldo
+    Route::resource('/request', RequestSaldoController::class);
+    Route::get('/request/{id}/{type}/{category}', [RequestSaldoController::class,'update']);
+    Route::put('/request/{id}/{type}/{category}', [RequestSaldoController::class,'update']);
     Route::resource('/testing', TestingController::class);
 });
 

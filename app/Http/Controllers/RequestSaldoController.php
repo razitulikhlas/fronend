@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 use Throwable;
 
-class PromoController extends Controller
+class RequestSaldoController extends Controller
 {
     use ApiResponser;
     private $serviceAPi;
@@ -26,17 +26,18 @@ class PromoController extends Controller
         try {
             $response =  json_decode($this->successResponse($this
             ->serviceAPi
-            ->sawCustomer())
+            ->requestSaldo())
             ->original, true);
             // return dd($response);
-            return view('layouts.promocustomer.index', [
-                "title"=>"Promo customer",
-                "data" => $response
+            return view('layouts.requestsaldo.index', [
+                "title"=>"Request Saldo",
+                "store" => $response["data"]["store"],
+                "driver" => $response["data"]["driver"],
             ]);
         } catch (\Throwable $th) {
-            // return dd($th);
-            return view('layouts.promocustomer.index', [
-                "title"=>"Promo customer",
+            // return dd($response);
+            return view('layouts.requestsaldo.index', [
+                "title"=>"Request Saldo",
                 "data" => []
             ]);
         }
@@ -123,9 +124,31 @@ class PromoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,$type,$category)
     {
+        // $category = $request->input('category');
+        try{
+            if($category == 'store'){
+                $response =  json_decode($this->successResponse($this
+                ->serviceAPi
+                ->updateRequestSaldoStore($id,$type))
+                ->original, true);
+                if ($response["success"]) {
+                    return redirect('request');
+                }
+            }else{
+                $response =  json_decode($this->successResponse($this
+                ->serviceAPi
+                ->updateRequestSaldoDriver($id,$type))
+                ->original, true);
+                if ($response["success"]) {
+                    return redirect('request');
+                }
+            }
 
+        }catch(\Throwable $th){
+            return $th;
+        }
 
     }
 

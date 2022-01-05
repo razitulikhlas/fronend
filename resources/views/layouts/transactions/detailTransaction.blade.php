@@ -94,14 +94,30 @@
                     <th style="width:50%">Subtotal:</th>
                     <td>Rp {{ number_format($totalTransaction,'0',',','.') }}</td>
                   </tr>
+
+                  @if ($promo != null)
+                    <tr>
+                    <th style="width:50%">Discount:</th>
+                    <td>- Rp {{ number_format($promo,'0',',','.') }}</td>
+                  </tr>
+                  @endif
+
                   <tr>
                     <th>Biaya Driver</th>
                     <td>Rp {{ number_format($transaction["driver_price"],'0',',','.') }}</td>
                   </tr>
+                  @if ($promo != null)
+                  <tr>
+                    <th>Total:</th>
+                    <td>Rp {{ number_format( $totalTransaction + $transaction["driver_price"]- $promo,'0',',','.')  }}</td>
+                  </tr>
+                  @else
                   <tr>
                     <th>Total:</th>
                     <td>Rp {{ number_format($totalTransaction + $transaction["driver_price"],'0',',','.') }}</td>
                   </tr>
+                  @endif
+
                 </tbody></table>
               </div>
             </div>

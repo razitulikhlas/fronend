@@ -147,4 +147,15 @@ class ServicesApi
     public function updateManagementSystem($data){
         return $this->performRequest("POST","/api/v1/management",$data);
     }
+
+    // request saldo
+    public function requestSaldo(){
+        return $this->performRequest("GET","/api/v1/admin/saldo");
+    }
+    public function updateRequestSaldoStore($id,$status){
+        return $this->performRequest("GET","/api/v1/admin/saldoStore/".$id."/".$status);
+    }
+    public function updateRequestSaldoDriver($id,$status){
+        return $this->performRequest("GET","/api/v1/admin/saldoDriver/".$id."/".$status);
+    }
 }

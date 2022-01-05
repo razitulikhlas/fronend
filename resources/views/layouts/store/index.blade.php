@@ -3,16 +3,16 @@
 
  <div class="card">
             <div class="card-header" style="background-color: aqua">
-              <h3 class="card-title">TITLE </h3>
+              <h3 class="card-title">DATA STORE</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body" style="background-color: #212529; color: white;" >
 
-<p>
+{{-- <p>
 	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#insert">
 	 <i class="fa fa-plus"></i> Tambah Store
 	</button>
-</p>
+</p> --}}
 
 <table class="table table-bordered table-sm" id="example1">
 	<thead>
@@ -94,6 +94,8 @@
   </div>
 </div>
 
+
+
 <!-- Modal -->
 <div class="modal fade" id="nonAktif" tabindex="-1" aria-labelledby="nonAktifLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -165,7 +167,18 @@
   </div>
 </div>
 {{-- insert --}}
-
+{{-- @if ($message = Session::get('success'))
+<div class="toast bg-success fade show" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <strong class="mr-auto">Toast Title</strong>
+        <small>Subtitle</small>
+        <button data-dismiss="toast" type="button" class="ml-2 mb-1 close" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+</div>
+@endif --}}
 <script>
 $(function() {
 	$(document).on('click','#notAktif',function(){

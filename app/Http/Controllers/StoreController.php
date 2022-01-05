@@ -154,7 +154,7 @@ class StoreController extends Controller
                     ->original, true);
 
                 if ($response["success"]) {
-                    return redirect('store');
+                    return redirect('store')->with(['success' => 'Pesan Berhasil']);
                 }
             } catch (Throwable $exception) {
                 if ($exception instanceof ClientException) {

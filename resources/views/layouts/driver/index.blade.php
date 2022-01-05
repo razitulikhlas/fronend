@@ -8,11 +8,11 @@
             <!-- /.card-header -->
             <div class="card-body" style="background-color: #212529; color: white;" >
 
-<p>
+{{-- <p>
 	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#insert">
 	 <i class="fa fa-plus"></i> Tambah Driver
 	</button>
-</p>
+</p> --}}
 
 <table class="table table-bordered table-sm" id="example1">
 	<thead>
@@ -42,7 +42,7 @@
 			<td>{{ $item['plat_kendaraan'] }}</td>
 			<td>{{ $item['nik'] }}</td>
 			<td>{{ $item['rating'] }}</td>
-			<td>{{ number_format($item['saldo'],'0',',','.') }}</td>
+			<td>Rp {{ number_format($item['saldo'],'0',',','.') }}</td>
 			<td>
 				@if ($item['status_delete'] == 1)
 				<button type="button" class="btn btn-primary position-relative" value="{{ $item["id"] }}" data-id-driver={{ $item["id"] }} data-bs-toggle="modal"  data-bs-target="#nonAktif" id="Aktif">

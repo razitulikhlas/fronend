@@ -3,7 +3,7 @@
 
  <div class="card">
             <div class="card-header" style="background-color: aqua">
-              <h3 class="card-title">DATA {{ $title }}</h3>
+              <h3 class="card-title">Data Customer</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body" style="background-color: #212529; color: white;" >

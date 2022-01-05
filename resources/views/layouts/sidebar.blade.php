@@ -33,17 +33,29 @@
 
              <li class="nav-item">
             <a href="/customer" class="nav-link {{ Request::is('customer') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-receipt"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                Customer
               </p>
             </a>
           </li>
 
+          {{-- reques slado --}}
+
+          <li class="nav-item">
+            <a href="/request" class="nav-link {{ Request::is('request') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-wallet"></i>
+              <p>
+               Request Saldo
+              </p>
+            </a>
+          </li>
+
+
              <!-- Keuntungan -->
           <li class="nav-item">
             <a href="/store" class="nav-link {{ Request::is('store') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-store-alt"></i>
               <p>
                Store
               </p>
@@ -56,7 +68,7 @@
           <!-- PANDUAN SISTEM -->
           <li class="nav-item">
             <a href="/drivers" class="nav-link {{ Request::is('drivers') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-book"></i>
+              <i class="nav-icon fas fa-motorcycle"></i>
               <p>
                Driver
               </p>
@@ -74,18 +86,18 @@
           </li>
 
           <!-- SIDEBAR SISTEM -->
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="/testing" class="nav-link {{ Request::is('testing') ? 'active' : ''}}">
               <i class="nav-icon fas fa-book"></i>
               <p>
                TESTING
               </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="/setting" class="nav-link {{ Request::is('setting') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-book"></i>
+              <i class="nav-icon fas fa-user-cog"></i>
               <p>
                SETTING
               </p>
@@ -94,7 +106,7 @@
 
           <li class="nav-item">
             <a href="/promo" class="nav-link {{ Request::is('promo') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-spinner"></i>
+              <i class="nav-icon fas fa-chart-bar"></i>
               <p>
                PROMO
               </p>

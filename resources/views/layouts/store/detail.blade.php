@@ -103,6 +103,24 @@
     </table>
 </div>
     </div>
-    <!-- /.col -->
-  </div>
+    <div class="card" style="width: 100%">
+        <div class="card-header">
+          Featured
+        </div>
+        <div id='maps' style='width: 400px; height: 300px;'></div>
+    </div>
 @endsection
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicmF6aXR1bGlraGxhcyIsImEiOiJja3kwM2RtcWUwNWVjMndtcDQxZzh3YzF6In0.-wd_XWClHYZgdGuwqpGNGg';
+    const map = new mapboxgl.Map({
+    container: 'maps', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [-74.5, 40], // starting position [lng, lat]
+    zoom: 9 // starting zoom
+    });
+    </script>
