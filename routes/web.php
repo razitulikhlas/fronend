@@ -72,6 +72,7 @@ Route::group(['middleware'=>['session']],function(){
     // Request Saldo
     Route::resource('/request', RequestSaldoController::class);
     Route::get('/request/{id}/{type}/{category}', [RequestSaldoController::class,'update']);
+    Route::get('/pdf/{id}', [TransactionController::class,'generatepdf']);
     Route::put('/request/{id}/{type}/{category}', [RequestSaldoController::class,'update']);
     Route::resource('/testing', TestingController::class);
 });

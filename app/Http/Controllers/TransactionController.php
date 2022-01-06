@@ -6,6 +6,7 @@ use App\Services\ServicesApi;
 use App\Traits\ApiResponser;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
+use Mpdf\Mpdf;
 use Throwable;
 
 class TransactionController extends Controller
@@ -48,7 +49,7 @@ class TransactionController extends Controller
                 ]);
             }
         } catch (Throwable $exception) {
-            
+
         }
     }
 
@@ -90,7 +91,7 @@ class TransactionController extends Controller
                 ->original, true);
 
                 // return dd($response);
-            
+
             $totalTransaction = 0;
 
             $totalTransaction= array_reduce($response["detail_transaksi"], function($totalTransaction, $item)
@@ -113,10 +114,10 @@ class TransactionController extends Controller
                 ]);
             }
         } catch (Throwable $exception) {
-            return $exception;
-            // return view('layouts.transactions.detailTransaction', [
-            //     "title" => "Customer"
-            // ]);
+            // return $exception;
+            return view('layouts.transactions.detailTransaction', [
+                "title" => "Customer"
+            ]);
         }
     }
 
@@ -227,5 +228,58 @@ class TransactionController extends Controller
         } catch (Throwable $exception) {
             return dd($exception);
         }
+    }
+
+    public function generatePdf($id){
+        try {
+            $response =  json_decode($this->successResponse($this
+                ->serviceAPi
+                ->getDetailTransaction($id))
+                ->original, true);
+
+                // return dd($response);
+
+            $totalTransaction = 0;
+
+            $totalTransaction= array_reduce($response["detail_transaksi"], function($totalTransaction, $item)
+            {
+                    return $item["count"] * $item["price_product"] + $totalTransaction;
+            });
+            $discount = null;
+            if($response["promo"] != null){
+                $discount = $response["promo"]["promoPrice"];
+            }
+
+            $fileName = "transanction.pdf";
+            $mpdf = new Mpdf([
+                'margin_left'=>10,
+                'margin_right'=>10,
+                'margin_top'=>15,
+                'margin_bottom'=>10,
+                'margin_header'=>10,
+                'margin_footer'=>10,
+                'mode' => 'utf-8',
+                'format' => 'A4-L',
+                'orientation' => 'L'
+            ]);
+            $html = view('layouts.transactions.pdf', [
+                    "store" => $response["store"],
+                    "driver" => $response["driver"],
+                    "transaction" => $response["transaction"],
+                    "detailTransaction" => $response["detail_transaksi"],
+                    "totalTransaction" => $totalTransaction,
+                    "promo"=>$discount
+            ]);
+            $html = $html->render();
+
+            $mpdf->WriteHTML($html);
+            $mpdf->Output($fileName,"I");
+
+        } catch (Throwable $exception) {
+            return view('layouts.transactions.detailTransaction', [
+                "title" => "Customer"
+            ]);
+        }
+
     }
 }
