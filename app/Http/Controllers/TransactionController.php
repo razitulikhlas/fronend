@@ -237,7 +237,7 @@ class TransactionController extends Controller
                 ->getDetailTransaction($id))
                 ->original, true);
 
-                // return dd($response);
+             //  return dd($response);
 
             $totalTransaction = 0;
 
@@ -265,7 +265,7 @@ class TransactionController extends Controller
             $html = view('layouts.transactions.pdf', [
                     "store" => $response["store"],
                     "driver" => $response["driver"],
-                    "transaction" => $response["transaction"],
+                    "transactionsa" => $response["transaction"],
                     "detailTransaction" => $response["detail_transaksi"],
                     "totalTransaction" => $totalTransaction,
                     "promo"=>$discount
