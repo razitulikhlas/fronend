@@ -48,7 +48,7 @@
 
             <hr>
             <strong><i class="far fa-id-card mr-1"></i>KTP</strong>
-            <img src="{{ asset('admin/dist/img/boxed-bg.jpg') }}" class="img-thumbnail" alt="...">
+            <img src="{{ env('BASE_URL_IMAGE'). $store['photo_ktp'] }}" class="img-thumbnail" alt="...">
         </div>
         <!-- /.card-body -->
       </div>

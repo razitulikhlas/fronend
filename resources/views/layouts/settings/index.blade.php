@@ -1,5 +1,53 @@
 @extends('layouts.main')
 @section('container')
+@if (session()->has('loginError'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+      {{ session('loginError') }}
+    </div>
+    @endif
+<h1>Ganti Password</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form id="formManagement" action="{{ url('/setting/changepassword')  }}" method="POST" class="row g-4 needs-validation" novalidate>
+            @csrf
+            <input type="text" hidden="true" class="form-control" name="type"  value="sawdriver" required>
+            <label class="form-label"></label>
+            <div class="col-md-12 mt-lg-0">
+              <label for="oldPassword" class="form-label">Password lama</label>
+              <input type="password"  class="form-control" name="oldPassword" id="oldPassword"  required>
+              <div class="valid-feedback">
+                Data wajib di isi
+              </div>
+            </div>
+            {{-- TOTAL ORDER --}}
+
+            <div class="col-md-12 mt-lg-0">
+              <label for="newPassword" class="form-label">Password baru</label>
+              <input type="password" class="form-control"  name="newPassword" id="newPassword"  required>
+              <div class="valid-feedback">
+                Data wajib di isi
+              </div>
+            </div>
+
+
+            <div class="col-md-12 mt-lg-0">
+              <label for="confirmPassword" class="form-label">Password Confirm</label>
+              <input type="password" class="form-control"  name="confirmPassword" id="confirmPassword"  required>
+              <div class="valid-feedback">
+                Data wajib di isi
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit"  class="btn btn-success col-md-2" data-toggle="modal" data-target="#insert">
+                    <i class="fa fa-save"></i> Simpan
+                   </button>
+            </div>
+
+          </form>
+    </div>
+  </div>
 <h1>SAW DRIVER</h1>
 
 <div class="card">

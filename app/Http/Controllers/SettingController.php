@@ -27,6 +27,7 @@ class SettingController extends Controller
                 ->getManagementSystem())
                 ->original, true);
             $data = $response["data"];
+            // return dd($data);
             // return $this->dataManagement;
             $distance =  explode(",", $data["distance"]);
             $totalOrder =  explode(",", $data["total_order"]);
@@ -65,6 +66,50 @@ class SettingController extends Controller
             }
         } catch (Throwable $exception) {
         }
+    }
+
+    public function changePassword(Request $request){
+        // return "hello";
+        $oldPassword=$request->input("oldPassword");
+        $newPassword=$request->input("newPassword");
+        $confirmPassword=$request->input("confirmPassword");
+
+        if($newPassword != $confirmPassword){
+            return back()->with('loginError', "tolong masukan new password dan confirm password yang sama");
+        }
+
+        try {
+            $data = [
+                "oldPassword"=>$oldPassword,
+                "newPassword"=>$confirmPassword,
+            ];
+
+            // return dd($data);
+
+
+            $response =  json_decode($this->successResponse($this
+                ->serviceAPi
+                ->changePasswordAdmin($data))
+                ->original, true);
+
+                if ($response["success"]) {
+                    return redirect('setting');
+                }else{
+                    return back()->with('loginError', "password lama yang anda masukan salah");
+                }
+        } catch (Throwable $exception) {
+            if ($exception instanceof ClientException) {
+                $message = $exception->getResponse()->getBody();
+                $code = $exception->getCode();
+                $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
+                // return var_dump($erorResponse);
+                return back()->with('loginError', $erorResponse["message"]);
+            } else {
+                return back()->with('loginError', "Check your connection");
+            }
+        }
+
+
     }
 
 

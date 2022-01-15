@@ -167,8 +167,9 @@
                 <input type="text" class="form-control" disabled id="saldo" name="saldo" placeholder="saldo">
                 </div>
                 <div class="form-group">
-                <label for="platkendaraan">IMAGE</label>
+                <label id="tvImg" for="platkendaraan">IMAGE</label>
                 <br>
+                {{-- <img src="{{ asset('admin/dist/img/boxed-bg.jpg') }}" class="img-thumbnail" alt="..."> --}}
                 <img id="imgTransaksi" src=""  style="width: 400px,height:400px"  alt="...">
                 </div>
             <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -204,6 +205,14 @@ $(function() {
         const category = $(this).data('category');
         const base_url =  $(this).data('image');
 
+        if(type != 'deposit'){
+            $('#imgTransaksi').hide()
+            $('#tvImg').hide()
+        }else{
+            $('#imgTransaksi').show()
+            $('#tvImg').show()
+        }
+
         console.log("base "+base_url);
 
          $("#btnProses").show();
@@ -222,7 +231,7 @@ $(function() {
         $("#type").val(type);
         $("#category").val(category);
         $("#titlemodal").text("Proses "+title);
-        $('#imgTransaksi').attr('src',"http://18.237.220.91/images/"+base_url);
+        $('#imgTransaksi').attr('src',"http://34.221.228.202:8081/images/"+base_url);
         $('#formEdit').attr('action','/request/'+$(this).data('id')+'/success/'+category);
         $('#btnCancel').attr('href','/request/'+$(this).data('id')+'/failed/'+category);
 	})

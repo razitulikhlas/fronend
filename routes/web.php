@@ -51,6 +51,7 @@ Route::group(['middleware'=>['session']],function(){
 
     // SETTING //
     Route::resource('/setting', SettingController::class);
+    Route::post('/setting/changepassword', [SettingController::class, 'changePassword']);
     // Route::get('/driver/{id}', [DashboardDriverController::class, 'show']);
     // Route::post('/drivers/{id}/{status}', [DashboardDriverController::class, 'aktivationDriver']);
 

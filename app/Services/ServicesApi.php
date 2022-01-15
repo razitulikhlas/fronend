@@ -112,6 +112,9 @@ class ServicesApi
     public function getListPromoCustomer(){
         return $this->performRequest("GET","api/v1/admin/listPromo");
     }
+    public function changePasswordAdmin($data){
+        return $this->performRequest("POST","api/v1/admin/changepass",$data);
+    }
 
 
     // CUSTOMER
