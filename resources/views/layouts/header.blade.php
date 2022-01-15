@@ -1,5 +1,7 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- ChartJS -->
+<script src="{{ asset('admin/plugins/chart.js/Chart.min.js') }}"></script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{ $title }}</title>
