@@ -161,4 +161,7 @@ class ServicesApi
     public function updateRequestSaldoDriver($id,$status){
         return $this->performRequest("GET","/api/v1/admin/saldoDriver/".$id."/".$status);
     }
+    public function chartDashboard(){
+        return $this->performRequest("GET","/api/v1/admin/chartdashboard");
+    }
 }

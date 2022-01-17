@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\ServicesApi;
 use App\Traits\ApiResponser;
+use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Throwable;
@@ -21,15 +22,28 @@ class ListPromoController extends Controller
     }
     public function index()
     {
+        try {
         $response =  json_decode($this->successResponse($this
         ->serviceAPi
         ->getListPromoCustomer())
         ->original, true);
-        // return dd($response);
+
+        $data = [];
+        if(isset($response["data"])){
+            $data = array_reverse($response["data"]);
+        }
+
         return view('layouts.promocustomer.listPromo', [
             "title"=>"Promo customer",
-            "data" => $response["data"]
+            "data" => $data
         ]);
+        } catch (Exception $exception) {
+            return view('layouts.promocustomer.listPromo', [
+                "title"=>"Promo customer",
+                "data" => []
+            ]);
+        }
+
     }
 
     /**

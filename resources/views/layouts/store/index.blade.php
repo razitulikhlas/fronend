@@ -1,6 +1,18 @@
 @extends('layouts.main')
 @section('container')
 
+@if (session()->has('loginError'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+      {{ session('loginError') }}
+    </div>
+@endif
+
+@if (session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" >
+      {{ session('success') }}
+    </div>
+@endif
+
  <div class="card">
             <div class="card-header" style="background-color: aqua">
               <h3 class="card-title">DATA STORE</h3>

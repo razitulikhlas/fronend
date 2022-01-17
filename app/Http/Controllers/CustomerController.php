@@ -28,6 +28,7 @@ class CustomerController extends Controller
             // $response["data"]
             return view('layouts.customer.index', ["title" => "Customer", "data" => $response["data"]]);
         } catch (Throwable $exception) {
+            return view('layouts.customer.index', ["title" => "Customer", "data" => []]);
         }
     }
 
@@ -81,18 +82,19 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-
         try {
-            $response =  json_decode($this->successResponse($this
+                $response =  json_decode($this->successResponse($this
                 ->serviceAPi
                 ->getTransactionCustomer($id))
                 ->original, true);
+
                 return view('layouts.customer.detail', [
                     "title" => "Detail Customer",
                     "transaction" => $response["data"],
                     "customer" => $response["customer"]
                 ]);
         } catch (Throwable $exception) {
+            return view('layouts.error.index',["title" => "Customer"]);
         }
     }
 
@@ -105,21 +107,6 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
-    }
-
-    public function activationProduct($id, $status, $idStore)
-    {
-        try {
-            $response =  json_decode($this->successResponse($this
-                ->serviceAPi
-                ->changeStatusDeleteProduct($id, $status))
-                ->original, true);
-            if ($response['success']) {
-                return redirect('store/' . $idStore);
-            }
-        } catch (Throwable $exception) {
-            return dd($exception);
-        }
     }
 
     /**
@@ -137,6 +124,8 @@ class CustomerController extends Controller
             'name', 'phone', 'email', 'address', 'level'
         ]);
 
+        // return dd($data);
+
             try {
                 $response =  json_decode($this->successResponse($this
                 ->serviceAPi
@@ -144,19 +133,18 @@ class CustomerController extends Controller
                 ->original, true);
 
                 if ($response["success"]) {
-                    return redirect('customer');
+                    return back()->with('success','success update data' );
                 }
             } catch (Throwable $exception) {
-                return dd($exception);
-                // if ($exception instanceof ClientException) {
-                //     $message = $exception->getResponse()->getBody();
-                //     $code = $exception->getCode();
-                //     $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
-                //     return var_dump($erorResponse);
-                //     // return back()->with('loginError', $erorResponse["message"]);
-                // } else {
-                //     // return back()->with('loginError', "Check your connection");
-                // }
+                if ($exception instanceof ClientException) {
+                    $message = $exception->getResponse()->getBody();
+                    $code = $exception->getCode();
+                    $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
+                    // return var_dump($erorResponse);
+                    return back()->with('loginError', $erorResponse["message"]);
+                } else {
+                    return back()->with('loginError', "Check your connection");
+                }
             }
     }
 
@@ -173,20 +161,4 @@ class CustomerController extends Controller
     {
     }
 
-    public function aktivationStore($id, $status)
-    {
-        try {
-            $response =  json_decode($this->successResponse($this
-                ->serviceAPi
-                ->changeStatusAktifStore($id, $status))
-                ->original, true);
-            if ($response['success']) {
-                return redirect('store');
-            }
-
-            return dd($response);
-        } catch (Throwable $exception) {
-            return dd($exception);
-        }
-    }
 }

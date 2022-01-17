@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\ServicesApi;
 use App\Traits\ApiResponser;
+use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
@@ -36,7 +37,6 @@ class PromoController extends Controller
         } catch (\Throwable $th) {
             // return dd($th);
             return view('layouts.promocustomer.index', [
-                "title"=>"Promo customer",
                 "data" => []
             ]);
         }
@@ -64,18 +64,31 @@ class PromoController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only([
-            'idCustomer', 'promoName','promoDescription','promoPrice','date','expired'
-        ]);
+        try {
+            $data = $request->only([
+                'idCustomer', 'promoName','promoDescription','promoPrice','date','expired'
+            ]);
 
-        $response =  json_decode($this->successResponse($this
-        ->serviceAPi
-        ->giftPromoCustomer($data))
-        ->original, true);
+            $response =  json_decode($this->successResponse($this
+            ->serviceAPi
+            ->giftPromoCustomer($data))
+            ->original, true);
 
-        if ($response['success']) {
-            return redirect('promo');
+            if ($response['success']) {
+                return redirect('listPromo');
+            }
+        } catch (Exception $exception) {
+            if ($exception instanceof ClientException) {
+                $message = $exception->getResponse()->getBody();
+                $code = $exception->getCode();
+                $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
+                // return var_dump($erorResponse);
+                return back()->with('loginError', $erorResponse["message"]);
+            } else {
+                return back()->with('loginError', "Check your connection");
+            }
         }
+
         // return dd($data);
     }
 

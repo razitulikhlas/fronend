@@ -146,6 +146,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
 
+
 <!-- page script -->
 <script>
   $(function () {

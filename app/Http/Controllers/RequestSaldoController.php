@@ -41,9 +41,6 @@ class RequestSaldoController extends Controller
         }
     }
 
-
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -77,15 +74,6 @@ class RequestSaldoController extends Controller
         // return dd($data);
     }
 
-    public function listPromo()
-    {
-        echo "hello";
-        // return "Hello"
-        // return view('layouts.promocustomer.listPromo', [
-        //     // "title"=>"Promo customer"
-        // ]);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -94,8 +82,6 @@ class RequestSaldoController extends Controller
      */
     public function show($id)
     {
-
-
     }
 
     /**
@@ -139,12 +125,19 @@ class RequestSaldoController extends Controller
                 ->updateRequestSaldoDriver($id,$type))
                 ->original, true);
                 if ($response["success"]) {
-                    return redirect('request');
+                    return back()->with('success', 'data berhasil di update');
                 }
             }
-
-        }catch(\Throwable $th){
-            return $th;
+        }catch(\Throwable $exception){
+            if ($exception instanceof ClientException) {
+                $message = $exception->getResponse()->getBody();
+                $code = $exception->getCode();
+                $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
+                // return var_dump($erorResponse);
+                return back()->with('loginError', $erorResponse["message"]);
+            } else {
+                return back()->with('loginError', "Check your connection");
+            }
         }
 
     }

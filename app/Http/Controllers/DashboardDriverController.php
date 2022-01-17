@@ -33,7 +33,7 @@ class DashboardDriverController extends Controller
             // return dd($response);
             return view('layouts.driver.index', ["title" => "Driver", "data" => $response["data"]]);
         } catch (Throwable $exception) {
-            return $exception;
+            // return $exception;
 
             return view('layouts.driver.index', ["title" => "Driver", "data" => []]);
         }
@@ -47,13 +47,18 @@ class DashboardDriverController extends Controller
                 ->changeStatusAktif($id, $status))
                 ->original, true);
             if ($response['success']) {
-                return redirect('drivers');
+                return redirect('drivers')->with(['success' => 'data berhasil di update']);
             }
-
-            return dd($response);
         } catch (Throwable $exception) {
-
-            return dd($exception);
+            if ($exception instanceof ClientException) {
+                $message = $exception->getResponse()->getBody();
+                $code = $exception->getCode();
+                $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
+                return var_dump($erorResponse);
+                // return back()->with('loginError', $erorResponse["message"]);
+            } else {
+                return back()->with('loginError', "Check your connection");
+            }
         }
     }
 
@@ -92,7 +97,8 @@ class DashboardDriverController extends Controller
                 ->serviceAPi
                 ->getDriver($id))
                 ->original, true);
-            // return dd($response);
+
+                // return dd($response);
             if ($response['success']) {
                 return view('layouts.driver.detail', [
                     "title" => "Detail Driver",
@@ -101,7 +107,8 @@ class DashboardDriverController extends Controller
                 ]);
             }
         } catch (Throwable $exception) {
-            return $exception;
+            return view('layouts.error.index',["title" => "Customer"]);
+            // return $exception;
         }
     }
 

@@ -5,14 +5,14 @@
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
-          <h3>{{ $data['customer'] }}</h3>
+          <h3>{{ isset($data['customer']) ? $data['customer'] : 0}}</h3>
 
           <p>Customer</p>
         </div>
         <div class="icon">
           <i class="ion ion-bag"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="/customer" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -20,14 +20,14 @@
       <!-- small box -->
       <div class="small-box bg-success">
         <div class="inner">
-          <h3>{{ $data['store'] }}</h3>
+          <h3>{{ isset($data['store']) ? $data['store'] : 0 }}</h3>
 
           <p>Store</p>
         </div>
         <div class="icon">
           <i class="ion ion-stats-bars"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="/store" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -35,14 +35,14 @@
       <!-- small box -->
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>{{ $data['driver'] }}</h3>
+          <h3>{{isset($data['driver']) ? $data['driver'] : 0  }}</h3>
 
           <p>Driver</p>
         </div>
         <div class="icon">
           <i class="ion ion-person-add"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="/drivers" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -50,7 +50,7 @@
       <!-- small box -->
       <div class="small-box bg-danger">
         <div class="inner">
-          <h3>{{ $data['benefit'] }}</h3>
+          <h3>{{ isset($data['benefit']) ? $data['benefit'] : 0  }}</h3>
 
           <p>Keuntungan</p>
         </div>
@@ -61,28 +61,86 @@
       </div>
     </div>
     <!-- ./col -->
-    <div>
-        @stack('scripts')
-        <canvas id="barChart"  width="810" height="187" class="chartjs-render-monitor"></canvas>
-    </div>
+    <div class="col-lg-6 col-6">
+        <!-- small box -->
+        <div class="card card-success">
+            <div class="card-header">
+              <h3 class="card-title">Total transaksi di tahun {{ date("Y") }}</h3>
 
-  </div>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="barChart"  width="1000" height="300" class="chartjs-render-monitor"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
 
-  @push('scripts')
+      </div>
+
+      <div class="col-lg-6 col-6">
+        <!-- small box -->
+        <div class="card card-success">
+            <div class="card-header">
+              <h3 class="card-title">Jumlah transaksi di tahun {{ date("Y") }}</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="chartKeuntungan"  width="1000" height="300" class="chartjs-render-monitor"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+      </div>
+
+      <div class="col-lg-6 col-6">
+        <!-- small box -->
+        <div class="card card-success">
+            <div class="card-header">
+              <h3 class="card-title">Keuntungan di tahun {{ date('Y') }}</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="chartBenefit"  width="1000" height="300" class="chartjs-render-monitor"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+      </div>
+ </div>
+
+
   <script>
+
     $(function () {
 
-        var thisInterval = setInterval(function{
-        //this if statment checks if the id "thisCanvas" is linked to something
-        if(document.getElementById("barChart") != null){
-            //do what you want
-
-
-            //clearInterval() will remove the interval if you have given your interval a name.
-            clearInterval(thisInterval)
-        }
-        //the 500 means that you will loop through this every 500 milliseconds (1/2 a second)
-        },500)
       /* ChartJS
        * -------
        * Here we will create a few charts using ChartJS
@@ -93,13 +151,30 @@
       //--------------
 
       // Get context with jQuery - using jQuery's .get() method.
-      var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+    //   var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
 
-      var areaChartData = {
-        labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      var areaChartDataPrice = {
+        labels  : {!! json_encode($month) !!},
         datasets: [
           {
-            label               : 'Digital Goods',
+            label               : 'Total transaksi perbulan',
+            backgroundColor     : 'rgba(72,61,139,1)',
+            borderColor         : 'rgba(60,141,188,0.8)',
+            pointRadius          : false,
+            pointColor          : '#3b8bba',
+            pointStrokeColor    : 'rgba(60,141,188,1)',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data                : {!! json_encode($price) !!}
+          },
+        ]
+      }
+
+      var areaChartDataTotal = {
+        labels  : {!! json_encode($month) !!},
+        datasets: [
+          {
+            label               : 'Jumlah transaksi perbulan',
             backgroundColor     : 'rgba(60,141,188,0.9)',
             borderColor         : 'rgba(60,141,188,0.8)',
             pointRadius          : false,
@@ -107,21 +182,28 @@
             pointStrokeColor    : 'rgba(60,141,188,1)',
             pointHighlightFill  : '#fff',
             pointHighlightStroke: 'rgba(60,141,188,1)',
-            data                : [28, 48, 40, 19, 86, 27, 90]
-          },
-          {
-            label               : 'Electronics',
-            backgroundColor     : 'rgba(210, 214, 222, 1)',
-            borderColor         : 'rgba(210, 214, 222, 1)',
-            pointRadius         : false,
-            pointColor          : 'rgba(210, 214, 222, 1)',
-            pointStrokeColor    : '#c1c7d1',
-            pointHighlightFill  : '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,1)',
-            data                : [65, 59, 80, 81, 56, 55, 40]
+            data                : {!! json_encode($totalTransaction) !!}
           },
         ]
       }
+
+      var areaChartBenefit = {
+        labels  : {!! json_encode($monthBenefit) !!},
+        datasets: [
+          {
+            label               : 'Jumlah transaksi perbulan',
+            backgroundColor     : 'rgba( 72, 209, 204, 1)',
+            borderColor         : 'rgba(60,141,188,0.8)',
+            pointRadius          : false,
+            pointColor          : '#3b8bba',
+            pointStrokeColor    : 'rgba(60,141,188,1)',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data                : {!! json_encode($priceBenefit) !!}
+          },
+        ]
+      }
+
 
       var areaChartOptions = {
         maintainAspectRatio : false,
@@ -144,11 +226,11 @@
       }
 
       // This will get the first returned node in the jQuery collection.
-      new Chart(areaChartCanvas, {
-        type: 'line',
-        data: areaChartData,
-        options: areaChartOptions
-      })
+    //   new Chart(areaChartCanvas, {
+    //     type: 'line',
+    //     data: areaChartData,
+    //     options: areaChartOptions
+    //   })
 
 
 
@@ -156,11 +238,49 @@
       //- BAR CHART -
       //-------------
       var barChartCanvas = $('#barChart').get(0).getContext('2d')
-      var barChartData = $.extend(true, {}, areaChartData)
-      var temp0 = areaChartData.datasets[0]
-      var temp1 = areaChartData.datasets[1]
-      barChartData.datasets[0] = temp1
-      barChartData.datasets[1] = temp0
+      var barChartData = $.extend(true, {}, areaChartDataPrice)
+      var temp0 = areaChartDataPrice.datasets[0]
+    //   var temp1 = areaChartData.datasets[1]
+      barChartData.datasets[0] = temp0
+    //   barChartData.datasets[1] = temp0
+
+      var barChartOptions = {
+        responsive              : true,
+        maintainAspectRatio     : false,
+        datasetFill             : false
+      }
+
+      new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barChartData,
+        options: barChartOptions
+      })
+
+      var barChartCanvas = $('#chartKeuntungan').get(0).getContext('2d')
+      var barChartData = $.extend(true, {}, areaChartDataTotal)
+      var temp0 = areaChartDataTotal.datasets[0]
+    //   var temp1 = areaChartData.datasets[1]
+      barChartData.datasets[0] = temp0
+    //   barChartData.datasets[1] = temp0
+
+      var barChartOptions = {
+        responsive              : true,
+        maintainAspectRatio     : false,
+        datasetFill             : false
+      }
+
+      new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barChartData,
+        options: barChartOptions
+      })
+
+      var barChartCanvas = $('#chartBenefit').get(0).getContext('2d')
+      var barChartData = $.extend(true, {}, areaChartBenefit)
+      var temp0 = areaChartBenefit.datasets[0]
+    //   var temp1 = areaChartData.datasets[1]
+      barChartData.datasets[0] = temp0
+    //   barChartData.datasets[1] = temp0
 
       var barChartOptions = {
         responsive              : true,
@@ -176,5 +296,5 @@
 
     })
   </script>
-  @endpush
+
 @endsection

@@ -27,6 +27,7 @@ class StoreController extends Controller
             // return dd($response);
             return view('layouts.store.index', ["title" => "Store", "data" => $response["data"]]);
         } catch (Throwable $exception) {
+            return view('layouts.store.index', ["title" => "Store", "data" => []]);
         }
     }
 
@@ -95,7 +96,7 @@ class StoreController extends Controller
                 ]);
             }
         } catch (Throwable $exception) {
-            return $exception;
+            return view('layouts.error.index',["title" => ""]);
         }
     }
 
@@ -154,7 +155,7 @@ class StoreController extends Controller
                     ->original, true);
 
                 if ($response["success"]) {
-                    return redirect('store')->with(['success' => 'Pesan Berhasil']);
+                    return redirect('store')->with(['success' => 'data berhasil di update']);
                 }
             } catch (Throwable $exception) {
                 if ($exception instanceof ClientException) {
@@ -164,7 +165,7 @@ class StoreController extends Controller
                     return var_dump($erorResponse);
                     // return back()->with('loginError', $erorResponse["message"]);
                 } else {
-                    // return back()->with('loginError', "Check your connection");
+                    return back()->with('loginError', "Check your connection");
                 }
             }
         }
@@ -201,12 +202,18 @@ class StoreController extends Controller
                 ->changeStatusAktifStore($id, $status))
                 ->original, true);
             if ($response['success']) {
-                return redirect('store');
+                return back()->with('success', "Berhasil update store");
             }
-
-            return dd($response);
         } catch (Throwable $exception) {
-            return dd($exception);
+            if ($exception instanceof ClientException) {
+                $message = $exception->getResponse()->getBody();
+                $code = $exception->getCode();
+                $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
+                // return var_dump($erorResponse);
+                return back()->with('loginError', $erorResponse["message"]);
+            } else {
+                return back()->with('loginError', "Check your connection");
+            }
         }
     }
 }

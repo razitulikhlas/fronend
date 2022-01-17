@@ -25,8 +25,12 @@ class TransactionController extends Controller
                 ->serviceAPi
                 ->getListTransactionFromAdmin())
                 ->original, true);
+            $data = [];
+            if(isset($response["data"])){
+                $data = array_reverse($response["data"]);
+            }
             // return dd($response);
-            return view('layouts.transactions.index', ["title" => "Transaksi", "data" => $response["data"]]);
+            return view('layouts.transactions.index', ["title" => "Transaksi", "data" => $data]);
         } catch (Throwable $exception) {
             // return $exception;
             return view('layouts.transactions.index', ["title" => "Transaksi", "data" => []]);
@@ -115,9 +119,7 @@ class TransactionController extends Controller
             }
         } catch (Throwable $exception) {
             // return $exception;
-            return view('layouts.transactions.detailTransaction', [
-                "title" => "Customer"
-            ]);
+            return view('layouts.error.index',["title" => ""]);
         }
     }
 
@@ -181,27 +183,16 @@ class TransactionController extends Controller
                     $message = $exception->getResponse()->getBody();
                     $code = $exception->getCode();
                     $erorResponse = json_decode($this->errorMessage($message, $code)->original, true);
-                    return var_dump($erorResponse);
-                    // return back()->with('loginError', $erorResponse["message"]);
+                    // return var_dump($erorResponse);
+                    return back()->with('loginError', $erorResponse["message"]);
                 } else {
-                    // return back()->with('loginError', "Check your connection");
+                    return back()->with('loginError', "Check your connection");
                 }
             }
         }
     }
 
-    public function getStore($id)
-    {
-        try {
-            $response =  json_decode($this->successResponse($this
-                ->serviceAPi
-                ->getStore($id))
-                ->original, true);
-            return $response["data"];
-        } catch (Throwable $e) {
-            return null;
-        }
-    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -213,22 +204,7 @@ class TransactionController extends Controller
     {
     }
 
-    public function aktivationStore($id, $status)
-    {
-        try {
-            $response =  json_decode($this->successResponse($this
-                ->serviceAPi
-                ->changeStatusAktifStore($id, $status))
-                ->original, true);
-            if ($response['success']) {
-                return redirect('store');
-            }
 
-            return dd($response);
-        } catch (Throwable $exception) {
-            return dd($exception);
-        }
-    }
 
     public function generatePdf($id){
         try {
