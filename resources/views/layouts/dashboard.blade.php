@@ -6,7 +6,6 @@
       <div class="small-box bg-info">
         <div class="inner">
           <h3>{{ isset($data['customer']) ? $data['customer'] : 0}}</h3>
-
           <p>Customer</p>
         </div>
         <div class="icon">
@@ -140,19 +139,6 @@
   <script>
 
     $(function () {
-
-      /* ChartJS
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
-
-      //--------------
-      //- AREA CHART -
-      //--------------
-
-      // Get context with jQuery - using jQuery's .get() method.
-    //   var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-
       var areaChartDataPrice = {
         labels  : {!! json_encode($month) !!},
         datasets: [
@@ -224,14 +210,6 @@
           }]
         }
       }
-
-      // This will get the first returned node in the jQuery collection.
-    //   new Chart(areaChartCanvas, {
-    //     type: 'line',
-    //     data: areaChartData,
-    //     options: areaChartOptions
-    //   })
-
 
 
       //-------------
