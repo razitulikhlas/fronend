@@ -195,14 +195,6 @@
 
 <script>
 $(function() {
-	$(document).on('click','#notAktif',function(){
-		$('#formAktivasi').attr('action','/drivers/'+$(this).data('id-driver')+'/1')
-	})
-	$(document).on('click','#Aktif',function(){
-		console.log();
-		$('#formNotAktivasi').attr('action','/drivers/'+$(this).data('id-driver')+'/0')
-	})
-
   $(document).on('click','#edit',function(){
        const namebank = $(this).data('namebank');
         const name = $(this).data('name');
@@ -229,9 +221,8 @@ $(function() {
          $("#btnCancel").show();
 
         if(status == "success"){
-        $("#btnProses").hide();
-        $("#btnCancel").hide();
-
+            $("#btnProses").hide();
+            $("#btnCancel").hide();
         }
         $("#namebank").val(namebank);
         $("#name").val(name);

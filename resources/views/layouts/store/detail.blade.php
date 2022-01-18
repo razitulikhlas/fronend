@@ -73,8 +73,7 @@
                 <th width="15%">Description</th>
                 <th width="15%">Harga Promo</th>
                 <th width="15%">Harga Normal</th>
-                <th width="15%">Status</th>
-                <th>ACTION</th>
+                <th width="10%">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -89,13 +88,14 @@
                 <td>{{ $item['description']}}</td>
                 <td>Rp {{ number_format( $item['price_promo'],'0',',','.') }}</td>
                 <td>Rp {{ number_format( $item['price'],'0',',','.') }}</td>
-                <td>{{ $item['status_delete'] }}</td>
                 <td>
-                  <div class="btn-group">
-                    <a href="" class="btn btn-info btn-sm" >
-                        <i class="fa fa-eye"></i> Detail
-                    </a>
-                  </div>
+                    @if ($item['status_delete'] == 0)
+                        <div class="btn btn-success">Tersedia</div>
+                        @elseif ($item['status_delete'] == 1)
+                        <div class="btn btn-warning">Stock Habis</div>
+                        @else
+                        <div class="btn btn-danger">Delete</div>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -103,12 +103,12 @@
     </table>
 </div>
     </div>
-    <div class="card" style="width: 100%">
+    {{-- <div class="card" style="width: 100%">
         <div class="card-header">
           Featured
         </div>
         <div id='maps' style='width: 400px; height: 300px;'></div>
-    </div>
+    </div> --}}
 @endsection
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
