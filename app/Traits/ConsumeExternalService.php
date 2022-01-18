@@ -23,7 +23,7 @@ trait ConsumeExternalService
         $headers['fcm'] = 'aseawcxasdqweqeqwfasfasfdasewqqew13e234er32ew2eq22e22e2qe12aw1d21a1';
 
         if (isset($this->secret)) {
-            $headers['Authorization'] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwiYXZhdGFyIjoiMTYzODg2MTYxNUNhcHR1cmUuUE5HIiwicm9sZSI6InN1cGVyX2FkbWluIiwiZXhwIjoxNjQyMjM0NDMyNjc4fQ.1rvjYnyet4sq5zbhNu6dOXGSFwlSKFp7WuV3AidwVek";
+            $headers['Authorization'] = "Bearer ".session("jwt");
         }
 
         $response = $client->request($method, $requestUrl, [
