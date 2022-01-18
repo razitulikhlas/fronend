@@ -52,7 +52,6 @@ class LoginController extends Controller
                     "login"=>true,
                     "name"=>$response["data"]["name"],
                     "avatar"=>$response["data"]["avatar"],
-                    "role"=>$response["data"]["role"],
                     "jwt"=>$response["data"]["jwt"],
                 ]);
                 return redirect()->intended('/dashboard');
