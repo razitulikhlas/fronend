@@ -135,12 +135,19 @@ class DashboardDriverController extends Controller
 
         $driver = $this->getDriver($id);
         // return dd($driver);
+        // return response()->json([
+        //     "name_driver"=>$request->nameDriver,
+        //     "email"=>$request->nameDriver,
+        //     "nomor_stnk"=>$request->nomorstnk,
+        //     "plat_kendaraan"=>$request->nomor_kendaraan,
+        //     "phone"=>$request->nohp,
+        // ],201);
         if ($driver) {
             $driver["name_driver"] = $request->nameDriver;
             $driver["email"] = $request->email;
             $driver["nomor_stnk"] = $request->nomorstnk;
             $driver["nik"] = $request->nik;
-            $driver["plat_kendaraan"] = $request->platkendaraan;
+            $driver["plat_kendaraan"] = $request->nomor_kendaraan;
             $driver["phone"] = $request->nohp;
 
             try {
@@ -153,6 +160,7 @@ class DashboardDriverController extends Controller
                     return redirect('drivers');
                 }
             } catch (Throwable $exception) {
+                return $exception;
                 if ($exception instanceof ClientException) {
                     $message = $exception->getResponse()->getBody();
                     $code = $exception->getCode();
