@@ -112,14 +112,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="/listPromo" class="nav-link {{ Request::is('listPromo') ? 'active' : ''}}">
               <i class="nav-icon fas fa-spinner"></i>
               <p>
                LIST PROMO
               </p>
             </a>
-          </li>
+          </li> --}}
           <!-- Data Sistem -->
           {{-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">

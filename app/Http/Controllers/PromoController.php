@@ -27,12 +27,21 @@ class PromoController extends Controller
         try {
             $response =  json_decode($this->successResponse($this
             ->serviceAPi
-            ->sawCustomer())
+            ->getListPromoCustomer())
             ->original, true);
+
+            $data = [];
+            if(isset($response["data"])){
+                $data = array_reverse($response["data"]);
+            }
+            // $response =  json_decode($this->successResponse($this
+            // ->serviceAPi
+            // ->sawCustomer())
+            // ->original, true);
             // return dd($response);
             return view('layouts.promocustomer.index', [
                 "title"=>"Promo customer",
-                "data" => $response
+                "data" => $data
             ]);
         } catch (\Throwable $th) {
             // return dd($th);
@@ -73,6 +82,7 @@ class PromoController extends Controller
             ->serviceAPi
             ->giftPromoCustomer($data))
             ->original, true);
+
 
             if ($response['success']) {
                 return redirect('listPromo');

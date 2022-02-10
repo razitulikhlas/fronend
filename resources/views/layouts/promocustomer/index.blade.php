@@ -8,18 +8,21 @@
             <!-- /.card-header -->
             <div class="card-body" style="background-color: #212529; color: white;" >
 
-
+        <p>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#insert">
+            <i class="fa fa-plus"></i> Tambah Promo
+            </button>
+        </p>
         <table class="table table-bordered table-sm" id="example1">
             <thead>
                 <tr>
                     <th width="5%">NO</th>
                     <th width="15%">NAMA CUSTOMER</th>
-                    <th width="20%">PHONE</th>
-                    <th width="20%">ADDRESS</th>
-                    <th width="10%">LEVEL</th>
-                    <th width="15%">Jumlah Transaksi</th>
-                    <th width="15%">Total Transaksi</th>
-                    <th>ACTION</th>
+                    <th width="20%">NAMA PROMO</th>
+                    <th width="20%">DESKRIPSI PROMO</th>
+                    <th width="10%">DISKON PROMO</th>
+                    <th width="15%">STATUS PROMO</th>
+                    <th width="15%">EXPIRE</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,18 +31,11 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item['name']}}</td>
-                    <td>{{ $item['phone']}}</td>
-                    <td>{{ $item['address']}}</td>
-                    <td>{{ $item['level']}}</td>
-                    <td>{{ $item['total_transaction'] }}</td>
-                    <td>Rp {{ number_format($item['total_price'],'0',',','.') }}</td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" id="edit" class="btn btn-warning btn-sm position-relative" data-id={{ $item["id_customer"] }}   data-toggle="modal" data-target="#insert">
-                                <i class="fa fa-edit"></i> PROMO
-                            </button>
-                        </div>
-                    </td>
+                    <td>{{ $item['promoName']}}</td>
+                    <td>{{ $item['promoDescription']}}</td>
+                    <td>Rp {{ number_format($item['promoPrice'],'0',',','.') }}</td>
+                    <td>{{ $item['status'] }}</td>
+                    <td>{{ $item['expired'] }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -49,7 +45,7 @@
 <!-- /header -->
 </div>
 
-<div class="card">
+{{-- <div class="card">
     <div class="card-header" style="background-color: aqua">
       <h3 class="card-title">SAW PROMO</h3>
     </div>
@@ -82,7 +78,7 @@
         @endforeach
     </tbody>
 </table>
-</div>
+</div> --}}
 
 
 {{-- insert --}}
