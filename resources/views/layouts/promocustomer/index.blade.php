@@ -23,6 +23,7 @@
                     <th width="10%">DISKON PROMO</th>
                     <th width="15%">STATUS PROMO</th>
                     <th width="15%">EXPIRE</th>
+                    <th width="15%">SAW</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,7 @@
                     <td>Rp {{ number_format($item['promoPrice'],'0',',','.') }}</td>
                     <td>{{ $item['status'] }}</td>
                     <td>{{ $item['expired'] }}</td>
+                    <td>{{ $item['saw'] }}</td>
                 </tr>
                 @endforeach
             </tbody>
