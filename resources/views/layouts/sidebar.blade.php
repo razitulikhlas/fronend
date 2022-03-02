@@ -80,7 +80,7 @@
             <a href="/transaksi" class="nav-link {{ Request::is('transaksi') ? 'active' : ''}}">
               <i class="nav-icon fas fa-book"></i>
               <p>
-               Transaksi
+               TRANSAKSI PELANGGAN
               </p>
             </a>
           </li>
